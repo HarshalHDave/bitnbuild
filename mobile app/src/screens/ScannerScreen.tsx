@@ -23,6 +23,7 @@ export default function ScannerScreen({navigation}:any) {
     routeData['product'] =foo[0];
     routeData['value'] =foo[1];
     routeData['expiry'] =foo[2];
+    routeData['desc'] =foo[3];
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     navigation.navigate("ImportForm",routeData);
   };

@@ -24,7 +24,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.adityapai.bitnbuildmobile"
     },
     "plugins": [
       [
@@ -33,6 +37,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6ef67a78-41ef-4f27-8186-da3c49f92a42"
+      }
+    }
   }
 }

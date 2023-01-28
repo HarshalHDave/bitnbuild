@@ -25,7 +25,7 @@ export default function Router() {
         { path: 'road-issues', element: <RoadIssuePage /> },
         { path: 'accidents', element: <AccidentPage /> },
         { path: 'tenders', element: <TenderPage /> },
-        // { path: 'products', element: <ProductsPage /> },
+        { path: 'products', element: <ProductsPage /> },
         // { path: 'blog', element: <BlogPage /> },
       ],
     },

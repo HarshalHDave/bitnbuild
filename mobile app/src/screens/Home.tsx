@@ -38,7 +38,7 @@ const Home = ({ navigation }: any) => {
             style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
             onPress={() => navigation.navigate("Orders")}>
             <Image
-              source={{ uri: "https://source.unsplash.com/random" }}
+              source={{ uri: "https://inventory-icons-bnb.surge.sh/api.png" }}
               resizeMode="contain"
               style={{ height: '48%', width: '72%', borderRadius: 4 }}
             ></Image>
@@ -53,6 +53,18 @@ const Home = ({ navigation }: any) => {
               style={{ height: '48%', width: '72%', borderRadius: 4 }}
             ></Image>
             <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>AI Forecasting</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+        <TouchableOpacity
+            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
+            onPress={() => navigation.navigate("SpaceManage")}>
+            <Image
+              source={{ uri: "https://inventory-icons-bnb.surge.sh/space.png" }}
+              resizeMode="contain"
+              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+            ></Image>
+            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Space Management</Text>
           </TouchableOpacity>
         </View>
       </>

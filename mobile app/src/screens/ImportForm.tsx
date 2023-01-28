@@ -4,9 +4,7 @@ import {
   Text,
   TextInput,
   View,
-  Keyboard,
   Image,
-  Touchable,
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -16,15 +14,133 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { Formik } from "formik";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
+import { storage } from "../lib/FireBase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useAppContext } from "../lib/Context";
+import axios from "axios";
+import { number } from "yup/lib/locale";
 
 const ImportForm = ({ navigation, route }: any) => {
+  const auth = useAppContext();
   const [searchPhrase, setSearchPhrase] = useState("");
   const [ShowDatePicker, setShowDatePicker] = useState(false);
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<string>();
   const [routeParams, setrouteParams] = useState(route.params);
   useEffect(() => {
     setrouteParams(route.params);
   }, [route.params]);
+
+  const uploadImage = async (uri: string) => {
+    const response = await fetch(uri);
+    const fileUrl = uri.split("/");
+    const fileName = fileUrl[fileUrl.length - 1];
+    const imageBuff = await response.blob();
+    // console.log(imageBuff)
+    var imageRef = ref(storage, "images/" + fileName);
+    const upload = await uploadBytes(imageRef, imageBuff);
+    const url = await getDownloadURL(imageRef);
+    return url;
+  };
+  const formSubmit = async (
+    name: string,
+    value: string,
+    imgLink: string,
+    expiry: string,
+    desc: string
+  ) => {
+    const date = new Date();
+    function randomString(length: number) {
+      return Math.round(
+        Math.pow(36, length + 1) - Math.random() * Math.pow(36, length)
+      )
+        .toString(36)
+        .slice(1);
+    }
+    function randomNumber(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+    // let headersList = {
+    //   Accept: "/",
+    //   Authorization: `Bearer ${auth?.user.token}`,
+    //   "Content-Type": "application/json"
+    // };
+
+    // let bodyContent = JSON.stringify({
+    //   prdID: randomString(6).toUpperCase(),
+    //   name: name,
+    //   value: value,
+    //   img: imgLink,
+    //   description: desc,
+    //   expiryDate: expiry,
+    //   importDate: date.toISOString(),
+    //   locId: randomNumber(11, 20),
+    // });
+    // console.log(bodyContent)
+    // let reqOptions = {
+    //   url: "http://192.168.137.143:5000/admin/product/create",
+    //   method: "POST",
+    //   headers: headersList,
+    //   data: bodyContent,
+    // };
+
+    // let response = await axios.request(reqOptions);
+    // console.log('sucess')
+    // console.log(response.data);
+    console.log({
+      prdID: randomString(6).toUpperCase(),
+      name: name,
+      value: parseInt(value),
+      img: imgLink,
+      description: desc,
+      expiryDate: expiry,
+      importDate: date.toISOString(),
+      locId: randomNumber(11, 20),
+    })
+    const prodId =randomString(6).toUpperCase()
+    axios.post(
+      "http://192.168.137.143:5000/admin/product/create",
+      {
+        prdID: prodId,
+        name: name,
+        value: parseInt(value),
+        img: imgLink,
+        description: desc,
+        expiryDate: expiry,
+        importDate: date.toISOString(),
+        locId: randomNumber(11, 20),
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth?.user.token}`,
+        },
+      }
+    ).then((val)=>{
+      if(val.data.status==='SUCCESS'){
+        axios.post(
+          "http://192.168.137.143:5000/admin/transaction/create",
+          {
+            prdID: prodId,
+            prdName: name,
+            prdValue: parseInt(value),
+            prdImg: imgLink,
+            prdDesc: desc,
+            expiryDate: expiry,
+            importDate: date.toISOString(),
+            status:'Import'
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${auth?.user.token}`,
+            },
+          }
+        ).then(val=>{
+          console.log(val.data)
+        })
+      }
+    })
+  };
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -59,8 +175,24 @@ const ImportForm = ({ navigation, route }: any) => {
             name: routeParams?.product ? routeParams.product : "",
             value: routeParams?.value ? routeParams.value : "",
             expiry: routeParams?.expiry ? routeParams.expiry : "",
+            description: routeParams?.desc ? routeParams.desc : "",
           }}
-          onSubmit={(values) => alert(JSON.stringify(values))}
+          onSubmit={(values) => {
+            if (image) {
+              uploadImage(image).then((imgLink) => {
+                if (imgLink) {
+                  formSubmit(
+                    routeParams?.product,
+                    routeParams?.value,
+                    imgLink,
+                    routeParams?.expiry,
+                    routeParams?.desc
+                  );
+                }
+              });
+            }
+            // alert(JSON.stringify(values));
+          }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <>
@@ -73,7 +205,7 @@ const ImportForm = ({ navigation, route }: any) => {
                   marginTop: 20,
                 }}
               >
-                Product Details : 
+                Product Details :
               </Text>
               <View style={[styles.container]}>
                 <View style={[styles.searchBar]}>
@@ -81,9 +213,24 @@ const ImportForm = ({ navigation, route }: any) => {
                     style={styles.input}
                     placeholder={"Product Name"}
                     value={routeParams?.product}
-                    onChangeText={(val)=>{
-                      setrouteParams({...routeParams, product: val})
+                    onChangeText={(val) => {
+                      setrouteParams({ ...routeParams, product: val });
                       handleChange("name")(val);
+                    }}
+                    placeholderTextColor={"grey"}
+                  />
+                </View>
+              </View>
+
+              <View style={[styles.container]}>
+                <View style={[styles.searchBar]}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder={"Product Value (Rs)"}
+                    value={routeParams?.value}
+                    onChangeText={(val) => {
+                      setrouteParams({ ...routeParams, value: val });
+                      handleChange("value")(val);
                     }}
                     placeholderTextColor={"grey"}
                   />
@@ -93,11 +240,11 @@ const ImportForm = ({ navigation, route }: any) => {
                 <View style={[styles.searchBar]}>
                   <TextInput
                     style={styles.input}
-                    placeholder={"Product Value (Rs)"}
-                    value={routeParams?.value}
-                    onChangeText={(val)=>{
-                      setrouteParams({...routeParams, value: val})
-                      handleChange("value")(val);
+                    placeholder={"Product Description"}
+                    value={routeParams?.desc}
+                    onChangeText={(val) => {
+                      setrouteParams({ ...routeParams, desc: val });
+                      handleChange("description")(val);
                     }}
                     placeholderTextColor={"grey"}
                   />
@@ -113,8 +260,14 @@ const ImportForm = ({ navigation, route }: any) => {
                     placeholderTextColor={"grey"}
                   />
                   <TouchableOpacity
-                  style={{backgroundColor:'white',padding:10 ,borderRadius:15}}
-                    onPress={() => {setShowDatePicker(true)}}
+                    style={{
+                      backgroundColor: "white",
+                      padding: 10,
+                      borderRadius: 15,
+                    }}
+                    onPress={() => {
+                      setShowDatePicker(true);
+                    }}
                   >
                     <Text>Set Date</Text>
                   </TouchableOpacity>
@@ -153,11 +306,16 @@ const ImportForm = ({ navigation, route }: any) => {
                 <DateTimePicker
                   mode="date"
                   value={new Date()}
-                  onChange={(change , date) => {
+                  onChange={(change, date) => {
                     if (change.type === "set") {
-                      setrouteParams({...routeParams,expiry:date?.toLocaleDateString()})
-                      handleChange('expiry')(date?.toLocaleDateString());
-                    } 
+                      console.log(date?.toISOString());
+                      setrouteParams({
+                        ...routeParams,
+                        expiry: date?.toISOString(),
+                      });
+                      //@ts-ignore
+                      handleChange("expiry")(date?.toISOString());
+                    }
                     setShowDatePicker(false);
                   }}
                 />

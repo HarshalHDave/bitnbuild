@@ -10,9 +10,9 @@ import React from "react";
 interface Inventory {
   status?: string;
   expiresIn?: number;
-  productId?: string;
-  productName?: string;
-  productValue?: string;
+  prdID?: string;
+  name?: string;
+  value?: string;
   zone?: string;
   block?: string;
   rack?: string;
@@ -55,7 +55,7 @@ const InventoryCard = (props: Inventory, { navigation }: any) => {
               marginBottom: 2,
             }}
           >
-            #{props.productId}
+            #{props.prdID}
           </Text>
           <Text
             style={{
@@ -65,7 +65,7 @@ const InventoryCard = (props: Inventory, { navigation }: any) => {
               marginBottom: 8,
             }}
           >
-            {props.productName}
+            {props.name}
           </Text>
           <Text
             style={{
@@ -75,7 +75,7 @@ const InventoryCard = (props: Inventory, { navigation }: any) => {
               marginBottom: 12,
             }}
           >
-            ₹ {props.productValue}
+            ₹ {props.value}
           </Text>
           <Text style={{ fontWeight: "600", fontSize: 14, color: "#beb0be" }}>
             {props.importDate} -{" "}
