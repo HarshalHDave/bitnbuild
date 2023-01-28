@@ -5,38 +5,56 @@ import {
   View,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SafeArea from "../components/SafeArea";
 import Navbar from "../components/Navbar";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
 import CalendarStrip from "react-native-calendar-strip";
 import moment from "moment";
 import InventoryCard from "../components/InventoryCard";
-const DATA = [
-  {
-    status: "imported",
-    expiresIn: 10,
-    productId: "ABC4",
-    productName: "Harshal Fruit,",
-    productValue: "1000",
-    zone: "AB",
-    block: "A",
-    rack: "1st",
-    importDate: "1/23",
-    exportDate: undefined,
-  }
-];
+import axios from "axios";
+import baseUrl from "../lib/baseUrl";
+import { useAppContext } from "../lib/Context";
+// const DATA = [
+//   {
+//     status: "imported",
+//     expiresIn: 10,
+//     productId: "ABC4",
+//     productName: "Harshal Fruit,",
+//     productValue: "1000",
+//     zone: "AB",
+//     block: "A",
+//     rack: "1st",
+//     importDate: "1/23",
+//     exportDate: undefined,
+//   },
+// ];
 
 const Inventory = ({ navigation }: any) => {
-
   const [searchPhrase, setSearchPhrase] = useState("");
-  let datesWhitelist = [
-    {
-      start: moment(),
-      end: moment().add(3, "days"), // total 4 days enabled
-    },
-  ];
-  let datesBlacklist = [moment().add(1, "days")];
+  const [Loading, setLoading] = useState(true);
+  const [Data, setData] = useState([]);
+  const [DateFilter, setDateFilter] = useState("");
+  const auth = useAppContext();
+  useEffect(() => {
+    axios
+      .post(
+        baseUrl + "/product/list",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth?.user.token}`,
+          },
+        }
+      )
+      .then((val) => {
+        setData(val.data.data.data);
+        setLoading(false);
+      });
+  }, []);
+
+  // console.log(Data)
   return (
     <SafeArea>
       <>
@@ -77,6 +95,10 @@ const Inventory = ({ navigation }: any) => {
             backgroundColor: "#0A0D30",
             padding: 4,
           }}
+          onDateSelected={(date) => {
+            //@ts-ignore
+            setDateFilter(date);
+          }}
           // dayContainerStyle={{borderRadius: 4}}
           dateNumberStyle={{ color: "#cec0ce" }}
           dateNameStyle={{ color: "#cec0ce" }}
@@ -100,11 +122,34 @@ const Inventory = ({ navigation }: any) => {
             />
           </View>
         </View>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <InventoryCard {...item} />}
-          keyExtractor={(item) => item.zone + item.block + item.rack}
-        />
+        {!Loading && (
+          // <ScrollView>
+          //   {Data.map(val=><InventoryCard id={""} />)}
+          // </ScrollView>
+          <FlatList
+            data={Data}
+            pagingEnabled
+            //@ts-ignore
+            renderItem={({ item }) => {
+              //@ts-ignore
+              if (DateFilter) {
+                //@ts-ignore
+                const impDate = new Date(item.importDate);
+                const selectedDate = new Date(DateFilter);
+                //@ts-ignore
+                if (selectedDate - impDate > 0) {
+                  //@ts-ignore
+                  return <InventoryCard id={""} {...item} />;
+                }
+              } else {
+                //@ts-ignore
+                return <InventoryCard id={""} {...item} />;
+              }
+            }}
+            //@ts-ignore
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </>
     </SafeArea>
   );

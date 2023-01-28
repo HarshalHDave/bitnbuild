@@ -1,0 +1,1 @@
+export default 'http://192.168.137.143:5000/admin';
