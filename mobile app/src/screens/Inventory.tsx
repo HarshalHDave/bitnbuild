@@ -14,22 +14,16 @@ import moment from "moment";
 import InventoryCard from "../components/InventoryCard";
 const DATA = [
   {
-    "id": 1,
-    "isDeleted": false,
-    "isActive": true,
-    "createdAt": "2023-01-28T14:32:38.000Z",
-    "updatedAt": "2023-01-28T14:32:38.000Z",
-    "addedBy": 2,
-    "updatedBy": null,
-    "prdID": "XUN158",
-    "name": "Parle G Biscuit (Pack of 200 x ?10)",
-    "value": 2000,
-    "img": "https://www.jiomart.com/images/product/150x150/490008739/parle-g-original-glucose-biscuits-800-g-product-images-o490008739-p490008739-0-202203170454.jpg",
-    "description": "Parle-G Original Glucose Biscuits are filled with the goodness of milk and wheat. Parle-G has been a source of all-round nourishment for growing kids and it has also been an all-time favourite choice for years. Whatever be the occasion, it has always been",
-    "expiryDate": "2024-02-01T00:06:04.000Z",
-    "importDate": "2023-01-01T05:59:58.000Z",
-    "exportDate": null,
-    "locId": 1
+    status: "imported",
+    expiresIn: 10,
+    productId: "ABC4",
+    productName: "Harshal Fruit,",
+    productValue: "1000",
+    zone: "AB",
+    block: "A",
+    rack: "1st",
+    importDate: "1/23",
+    exportDate: undefined,
   }
 ];
 
@@ -109,7 +103,7 @@ const Inventory = ({ navigation }: any) => {
         <FlatList
           data={DATA}
           renderItem={({ item }) => <InventoryCard {...item} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.zone + item.block + item.rack}
         />
       </>
     </SafeArea>
