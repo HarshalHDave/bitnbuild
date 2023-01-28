@@ -9,62 +9,148 @@ const Home = ({ navigation }: any) => {
     <SafeArea>
       <>
         <Navbar title="AnyTracker" iconComponent={<HomeNavIcon />} />
-        
-        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("Transanctions")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("Transanctions")}
+          >
             <Image
-              source={{ uri: "https://inventory-icons-bnb.surge.sh/report.png" }}
+              source={{
+                uri: "https://inventory-icons-bnb.surge.sh/report.png",
+              }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Transanctions</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              Transanctions
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("Inventory")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("Inventory")}
+          >
             <Image
-              source={{ uri: "https://inventory-icons-bnb.surge.sh/inventorymanagment.png" }}
+              source={{
+                uri: "https://inventory-icons-bnb.surge.sh/inventorymanagment.png",
+              }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Inventory Management</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              Inventory Management
+            </Text>
           </TouchableOpacity>
         </View>
-        
-        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("Orders")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("Orders")}
+          >
             <Image
               source={{ uri: "https://inventory-icons-bnb.surge.sh/api.png" }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Orders</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              3rd Party Api
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("Orders")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("Orders")}
+          >
             <Image
-              source={{ uri: "https://inventory-icons-bnb.surge.sh/forecasting.png" }}
+              source={{
+                uri: "https://inventory-icons-bnb.surge.sh/forecasting.png",
+              }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>AI Forecasting</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              AI Forecasting
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+        <View>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("SpaceManage")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("SpaceManage")}
+          >
             <Image
               source={{ uri: "https://inventory-icons-bnb.surge.sh/space.png" }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Space Management</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              Space Management
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
