@@ -1,0 +1,88 @@
+import { faker } from '@faker-js/faker';
+import { sample } from 'lodash';
+
+// ----------------------------------------------------------------------
+export const getUserList = async () => {
+  const users = [];
+  const apiRes = await fetch('http://localhost:5000/admin/reports/list', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGhvbmUiOiJpN2NkeTA4MWptIiwiaWF0IjoxNjY4NzYyMTYyLCJleHAiOjE2NjkzNjIxNjJ9.WT2mz04A4vxYErseXzWdihHkz0avT-D8_8DZpJLXN20',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await apiRes.json();
+  // console.log(result.data.data);
+  result.data.data.forEach((val) => {
+    let url = 'http://localhost:5000/';
+    url+=val.img;
+    console.log(url)
+    if (val.type !== 'accidents')
+      users.push({
+        id: val.id,
+        avatarUrl: url,
+        type: val.type,
+        pocname: val.pocname,
+        pocnum: val.pocnum,
+        lat: val.lat,
+        long: val.long,
+        text: val.text,
+        status: val.isActive ? 'unresolved' : 'resolved',
+        isVerified: val.isActive,
+      });
+  });
+  return users;
+  // users.push();
+};
+export const getUserAccidentList = async () => {
+  const users = [];
+  const apiRes = await fetch('http://localhost:5000/admin/reports/list', {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGhvbmUiOiJpN2NkeTA4MWptIiwiaWF0IjoxNjY4NzYyMTYyLCJleHAiOjE2NjkzNjIxNjJ9.WT2mz04A4vxYErseXzWdihHkz0avT-D8_8DZpJLXN20',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await apiRes.json();
+  // console.log(result.data.data);
+  result.data.data.forEach((val) => {
+    let url = 'http://localhost:5000/';
+    url += val.img;
+    if (val.type === 'accidents')
+      users.push({
+        id: val.id,
+        avatarUrl: url,
+        type: val.type,
+        pocname: val.pocname,
+        pocnum: val.pocnum,
+        lat: val.lat,
+        long: val.long,
+        text: val.text,
+        status: val.isActive ? 'unresolved' : 'resolved',
+        isVerified: val.isActive,
+      });
+  });
+  return users;
+  // users.push();
+};
+
+
+
+const users = [].map((_, index) => ({
+  id: faker.phone.number('####'),
+  avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+  type: sample(['Potholes', 'Manholes', 'Street Lights']),
+  text: faker.commerce.productDescription(),
+  pocnum: faker.phone.number('+91 9#### #####'),
+  isVerified: faker.datatype.boolean(),
+  lat: faker.address.latitude(),
+  long: faker.address.longitude(),
+  status: sample(['resolved', 'unresolved']),
+  pocname: faker.name.fullName(),
+}));
+export default users;
+
