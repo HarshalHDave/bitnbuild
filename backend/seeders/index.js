@@ -35,28 +35,28 @@ async function seedUser () {
       userToBeInserted.password = await bcrypt.hash(userToBeInserted.password, 8);
       await dbService.update(model.user, { 'username':'adityapai' }, userToBeInserted);
     }
-    userToBeInserted = await dbService.findOne(model.user,{ 'username':'harshaldave' });
+    userToBeInserted = await dbService.findOne(model.user,{ 'username':'barfi' });
     if (!userToBeInserted) {  
       userToBeInserted = {
-        'password':'h123',
+        'password':'123456789',
         'isDeleted':false,
-        'username':'harshaldave',
-        'email':'h@gmail.com',
+        'username':'barfi',
+        'email':'barfi@gmail.com',
         'isActive':true,
         'userType':authConstant.USER_TYPES.Admin
       };
       await dbService.createOne(model.user,userToBeInserted);
     } else {
       userToBeInserted = {
-        'password':'h123',
+        'password':'123456789',
         'isDeleted':false,
-        'username':'harshaldave',
-        'email':'h@gmail.com',
+        'username':'barfi',
+        'email':'barfi@gmail.com',
         'isActive':true,
         'userType':authConstant.USER_TYPES.Admin
       };
       userToBeInserted.password = await bcrypt.hash(userToBeInserted.password, 8);
-      await dbService.update(model.user, { 'username':'harshaldave' }, userToBeInserted);
+      await dbService.update(model.user, { 'username':'barfi' }, userToBeInserted);
     }
     console.info('User model seeded 🍺');
   } catch (error){
@@ -2356,8 +2356,8 @@ async function seedUserRole (){
       'username':'adityapai',
       'password':'ap123'
     },{
-      'username':'harshaldave',
-      'password':'h123'
+      'username':'barfi',
+      'password':'123456789'
     }];
     const defaultRoles = await dbService.findAll(model.role);
     const insertedUsers = await dbService.findAll(model.user, { username: { $in: userRoles.map(userRole => userRole.username) } });

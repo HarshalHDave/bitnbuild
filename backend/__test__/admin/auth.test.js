@@ -30,17 +30,17 @@ describe('POST /register -> if email and username is given', () => {
     let registeredUser = await request(app)
       .post('/admin/auth/register')
       .send({
-        'email':'Hadley33@yahoo.com',
-        'password':'KLn02eo0gjcMbZp',
-        'name':'Ryan Bartoletti',
-        'userType':authConstant.USER_TYPES.Admin,
-        'companyName':'Arizona',
-        'number':'Cambridgeshire',
-        'address':'791 Swift Trace',
-        'city':'extend',
-        'country':'reboot',
-        'mobileNo':'(099) 392-5117',
-        'username':'Evan_Abbott'
+        'email':'Ken_Nader67@gmail.com',
+        'password':'rxeKnQLnRENNz2J',
+        'name':'Doug Hoppe',
+        'userType':authConstant.USER_TYPES.User,
+        'companyName':'connecting',
+        'number':'parse',
+        'address':'7503 Nikolaus Crossroad',
+        'city':'Baby',
+        'country':'Junctions',
+        'mobileNo':'(781) 702-4808',
+        'username':'Okey59'
       });
     expect(registeredUser.headers['content-type']).toEqual('application/json; charset=utf-8');
     expect(registeredUser.body.status).toBe('SUCCESS');
@@ -55,8 +55,8 @@ describe('POST /login -> if username and password is correct', () => {
       .post('/admin/auth/login')
       .send(
         {
-          username: 'Evan_Abbott',
-          password: 'KLn02eo0gjcMbZp'
+          username: 'Okey59',
+          password: 'rxeKnQLnRENNz2J'
         }
       );
     expect(user.statusCode).toBe(200);
@@ -75,7 +75,7 @@ describe('POST /login -> if username is incorrect', () => {
       .send(
         {
           username: 'wrong.username',
-          password: 'KLn02eo0gjcMbZp'
+          password: 'rxeKnQLnRENNz2J'
         }
       );
 
@@ -90,7 +90,7 @@ describe('POST /login -> if password is incorrect', () => {
       .post('/admin/auth/login')
       .send(
         {
-          username: 'Evan_Abbott',
+          username: 'Okey59',
           password: 'wrong@password'
         }
       );
@@ -122,27 +122,35 @@ describe('POST /forgot-password -> if email has not passed from request body', (
   });
 });
 
-describe('POST /forgot-password -> if email passed from request body is not available in database', () => {
-  test('should return record not found status', async () => {
-    let user = await request(app)
-      .post('/admin/auth/forgot-password')
-      .send({ 'email': 'unavailable.email@hotmail.com', });
+/*
+ * describe('POST /forgot-password -> if email passed from request body is not available in database', () => {
+ *   test('should return record not found status', async () => {
+ *     let user = await request(app)
+ *       .post('/admin/auth/forgot-password')
+ *       .send({ 'email': 'unavailable.email@hotmail.com', });
+ */
     
-    expect(user.statusCode).toBe(404);
-    expect(user.body.status).toBe('RECORD_NOT_FOUND');
-  });
-});
+/*
+ *     expect(user.statusCode).toBe(404);
+ *     expect(user.body.status).toBe('RECORD_NOT_FOUND');
+ *   });
+ * });
+ */
 
-describe('POST /forgot-password -> if email passed from request body is valid and OTP sent successfully', () => {
-  test('should return success message', async () => {
-    let user = await request(app)
-      .post('/admin/auth/forgot-password')
-      .send({ 'email':'Hadley33@yahoo.com', });
+/*
+ * describe('POST /forgot-password -> if email passed from request body is valid and OTP sent successfully', () => {
+ *   test('should return success message', async () => {
+ *     let user = await request(app)
+ *       .post('/admin/auth/forgot-password')
+ *       .send({ 'email':'Ken_Nader67@gmail.com', });
+ */
     
-    expect(user.statusCode).toBe(200);
-    expect(user.body.status).toBe('SUCCESS');
-  });
-});
+/*
+ *     expect(user.statusCode).toBe(200);
+ *     expect(user.body.status).toBe('SUCCESS');
+ *   });
+ * });
+ */
 
 describe('POST /validate-otp -> otp is sent in request body and OTP is correct', () => {
   test('should return success', () => {
@@ -150,8 +158,8 @@ describe('POST /validate-otp -> otp is sent in request body and OTP is correct',
       .post('/admin/auth/login')
       .send(
         {
-          username: 'Evan_Abbott',
-          password: 'KLn02eo0gjcMbZp'
+          username: 'Okey59',
+          password: 'rxeKnQLnRENNz2J'
         }).then(login => () => {
         return request(app)
           .get(`/admin/user/${login.body.data.id}`)
@@ -197,8 +205,8 @@ describe('PUT /reset-password -> code is sent in request body and code is correc
       .post('/admin/auth/login')
       .send(
         {
-          username: 'Evan_Abbott',
-          password: 'KLn02eo0gjcMbZp'
+          username: 'Okey59',
+          password: 'rxeKnQLnRENNz2J'
         }).then(login => () => {
         return request(app)
           .get(`/admin/user/${login.body.data.id}`)

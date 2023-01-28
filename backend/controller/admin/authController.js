@@ -45,7 +45,7 @@ const register = async (req, res) => {
 
     const result = await dbService.createOne(user,{
       ...dataToRegister,
-      userType: authConstant.USER_TYPES.Admin
+      userType: authConstant.USER_TYPES.User
     });
     if (isEmptyPassword && req.body.email){
       await sendPasswordByEmail({
