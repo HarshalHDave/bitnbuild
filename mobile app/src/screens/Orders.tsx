@@ -9,7 +9,7 @@ const Orders = () => {
   return (
     <SafeArea>
       <>
-      <Navbar title="Order Management"  />
+      <Navbar title="3rd Party API Token"  />
         <View style={{flex: 1, padding: 16}}>
           <Text style={{ color: "#eee0ee", fontSize: 18 }}>Copy and share this authorization token to allow 3rd party apps to manage your inventory.</Text>
           <View style={{ margin: 20, padding: 15, marginTop: 30, borderRadius: 20, justifyContent: 'center', alignItems: "center", height: "auto", elevation: 7 }}>

@@ -125,7 +125,7 @@ const Home = ({ navigation }: any) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <TouchableOpacity
             style={{
               width: "48%",
