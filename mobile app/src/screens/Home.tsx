@@ -55,8 +55,8 @@ const Home = ({ navigation }: any) => {
             <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>AI Forecasting</Text>
           </TouchableOpacity>
         </View>
-        <View>
-        <TouchableOpacity
+        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+          <TouchableOpacity
             style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
             onPress={() => navigation.navigate("SpaceManage")}>
             <Image
@@ -65,6 +65,16 @@ const Home = ({ navigation }: any) => {
               style={{ height: '48%', width: '72%', borderRadius: 4 }}
             ></Image>
             <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Space Management</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
+            onPress={() => navigation.navigate("Orders")}>
+            <Image
+              source={{ uri: "https://inventory-icons-bnb.surge.sh/employees.png" }}
+              resizeMode="contain"
+              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+            ></Image>
+            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Employee Management</Text>
           </TouchableOpacity>
         </View>
       </>
