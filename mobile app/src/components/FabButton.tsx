@@ -4,9 +4,8 @@ import { FAB } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 interface FabButtonProps {
   onImportPress: () => void;
-  onExportPress: () => void;
 }
-const FabButton = ({ onImportPress, onExportPress }: FabButtonProps) => {
+const FabButton = ({ onImportPress }: FabButtonProps) => {
   const [IsFabActive, setIsFabActive] = useState(false);
   return (
     <>
@@ -51,25 +50,6 @@ const FabButton = ({ onImportPress, onExportPress }: FabButtonProps) => {
         >
           <MaterialCommunityIcons name="import" size={24} color="black" />
           <Text style={{ fontSize: 10, fontWeight: "bold" }}>Import</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            position: "absolute",
-            zIndex: 10,
-            bottom: 75,
-            right: 0,
-            margin: 16,
-            backgroundColor: "white",
-            borderRadius: 65,
-            height: 65,
-            width: 65,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-          onPress={onExportPress}
-        >
-          <MaterialCommunityIcons name="export" size={24} color="black" />
-          <Text style={{ fontSize: 10, fontWeight: "bold" }}>Export</Text>
         </TouchableOpacity>
       </View>
     </>
