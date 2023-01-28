@@ -10,7 +10,13 @@ const Orders = () => {
     <SafeArea>
       <>
       <Navbar title="Order Management"  />
-      <OrderCard/>
+        <View style={{flex: 1, padding: 16}}>
+          <Text style={{ color: "#eee0ee", fontSize: 18 }}>Copy and share this authorization token to allow 3rd party apps to manage your inventory.</Text>
+          <View style={{ margin: 20, padding: 15, marginTop: 30, borderRadius: 20, justifyContent: 'center', alignItems: "center", height: "auto", elevation: 7 }}>
+            <Text style={{textAlign: 'center', fontSize: 14, color: '#ded0de'}} selectable={true}>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJiYXJmaSIsImlhdCI6MTY3NDkxMjAxOCwiZXhwIjoxNzA2NDQ4MDE4fQ.U5Xtdu7E5SIu4XWnaDXiF0kdF2QdK4FBbRguqzq3bbM</Text>
+          </View>
+          <Text style={{color: "#beb0be", fontSize: 14, position: 'absolute', bottom: 16}}>Share this token with the parties you trust. They will have the acces to view and alter the data in your invneotry.</Text>
+        </View>
       </>
     </SafeArea>
   )
