@@ -7,27 +7,53 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SafeArea from "../components/SafeArea";
 import Navbar from "../components/Navbar";
 import { Fontisto, Ionicons } from "@expo/vector-icons";
 import CalendarStrip from "react-native-calendar-strip";
 import TransCard from "../components/TransCard";
 import FabButton from "../components/FabButton";
-const DATA = [
-  {
-    status: "Imported",
-    expiresIn: 5,
-    productId: "JHV769876",
-    productName: "Addidas ,Sports Shoes Manf. 30/12/2022, tribute to bolt",
-    productValue: "1000",
-    zone: "AB",
-    block: "A",
-    rack: "1st",
-  },
-];
+import axios from "axios";
+import baseUrl from "../lib/baseUrl";
+import { useAppContext } from "../lib/Context";
+// const DATA = [
+//   {
+//     status: "Imported",
+//     expiresIn: 5,
+//     productId: "JHV769876",
+//     productName: "Addidas ,Sports Shoes Manf. 30/12/2022, tribute to bolt",
+//     productValue: "1000",
+//     zone: "AB",
+//     block: "A",
+//     rack: "1st",
+//   },
+// ];
 const Transanctions = ({ navigation }: any) => {
+  const auth = useAppContext();
+  const [DateFilter, setDateFilter] = useState("");
+
+  const [Loading, setLoading] = useState(true);
+  const [Data, setData] = useState([]);
   const [searchPhrase, setSearchPhrase] = useState("");
+  useEffect(() => {
+    axios
+      .post(
+        baseUrl + "/transaction/list",
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth?.user.token}`,
+          },
+        }
+      )
+      .then((val) => {
+        setData(val.data.data.data);
+        setLoading(false);
+        console.log(val.data);
+      });
+  }, []);
   return (
     <SafeArea>
       <>
@@ -68,6 +94,9 @@ const Transanctions = ({ navigation }: any) => {
             backgroundColor: "#0A0D30",
             padding: 4,
           }}
+          onDateSelected={(date) => {
+            setDateFilter(date);
+          }}
           // dayContainerStyle={{borderRadius: 4}}
           dateNumberStyle={{ color: "#cec0ce" }}
           dateNameStyle={{ color: "#cec0ce" }}
@@ -78,10 +107,7 @@ const Transanctions = ({ navigation }: any) => {
           iconContainer={{ flex: 0.1 }}
         />
         {/* FAB BUTTON */}
-        <FabButton
-          onExportPress={() => navigation.navigate("")}
-          onImportPress={() => navigation.navigate("ImportForm")}
-        />
+        <FabButton onImportPress={() => navigation.navigate("ImportForm")} />
         <View style={[styles.container]}>
           <View style={[styles.searchBar]}>
             <Ionicons name="search" size={24} color="#8e808e" />
@@ -97,9 +123,29 @@ const Transanctions = ({ navigation }: any) => {
           </View>
         </View>
         <FlatList
-          data={DATA}
-          renderItem={({ item }) => <TransCard {...item} />}
-          keyExtractor={(item) => item.zone + item.block + item.rack}
+          data={Data}
+          renderItem={({ item }) => {
+            if (DateFilter) {
+              const impDate = new Date(item.importDate);
+              const exportDate = new Date(item.exportDate);
+
+              const selectedDate = new Date(DateFilter);
+              console.log(selectedDate - impDate);
+              if (
+                Math.floor((selectedDate - impDate) / (1000 * 60 * 60 * 24)) ==
+                  0 ||
+                Math.floor(
+                  (selectedDate - exportDate) / (1000 * 60 * 60 * 24)
+                ) == 0
+              )
+                return <TransCard id={item.id} {...item} />;
+              // if (selectedDate - impDate > 0) {
+              // }
+            } else {
+              return <TransCard id={item.id} {...item} />;
+            }
+          }}
+          keyExtractor={(item) => item.id}
         />
       </>
     </SafeArea>
