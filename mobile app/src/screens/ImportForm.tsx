@@ -18,7 +18,7 @@ import { storage } from "../lib/FireBase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useAppContext } from "../lib/Context";
 import axios from "axios";
-import { number } from "yup/lib/locale";
+import baseUrl from "../lib/baseUrl";
 
 const ImportForm = ({ navigation, route }: any) => {
   const auth = useAppContext();
@@ -59,46 +59,9 @@ const ImportForm = ({ navigation, route }: any) => {
     function randomNumber(min: number, max: number) {
       return Math.floor(Math.random() * (max - min) + min);
     }
-    // let headersList = {
-    //   Accept: "/",
-    //   Authorization: `Bearer ${auth?.user.token}`,
-    //   "Content-Type": "application/json"
-    // };
-
-    // let bodyContent = JSON.stringify({
-    //   prdID: randomString(6).toUpperCase(),
-    //   name: name,
-    //   value: value,
-    //   img: imgLink,
-    //   description: desc,
-    //   expiryDate: expiry,
-    //   importDate: date.toISOString(),
-    //   locId: randomNumber(11, 20),
-    // });
-    // console.log(bodyContent)
-    // let reqOptions = {
-    //   url: "http://192.168.137.143:5000/admin/product/create",
-    //   method: "POST",
-    //   headers: headersList,
-    //   data: bodyContent,
-    // };
-
-    // let response = await axios.request(reqOptions);
-    // console.log('sucess')
-    // console.log(response.data);
-    console.log({
-      prdID: randomString(6).toUpperCase(),
-      name: name,
-      value: parseInt(value),
-      img: imgLink,
-      description: desc,
-      expiryDate: expiry,
-      importDate: date.toISOString(),
-      locId: randomNumber(11, 20),
-    })
     const prodId =randomString(6).toUpperCase()
     axios.post(
-      "http://192.168.137.143:5000/admin/product/create",
+      baseUrl+"/product/create",
       {
         prdID: prodId,
         name: name,
@@ -118,7 +81,7 @@ const ImportForm = ({ navigation, route }: any) => {
     ).then((val)=>{
       if(val.data.status==='SUCCESS'){
         axios.post(
-          "http://192.168.137.143:5000/admin/transaction/create",
+          baseUrl+"/transaction/create",
           {
             prdID: prodId,
             prdName: name,
@@ -136,7 +99,12 @@ const ImportForm = ({ navigation, route }: any) => {
             },
           }
         ).then(val=>{
-          console.log(val.data)
+          if(val.data.status==="SUCCESS"){
+            navigation.popToTop();
+          }
+          else{
+            alert('Error in submitting')
+          }
         })
       }
     })
