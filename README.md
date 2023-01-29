@@ -1,38 +1,50 @@
+
+# ANY-TRACKER
+
+
+
 ## Clone the Repository
 
-bash
+```bash
 git clone https://github.com/HarshalHDave/bitnbuild.git
 cd ./bitnbuild
-
+```
 
 ## Installation
 
 
 ### To run the Express.JS server run the following command
 
-bash
+```bash
 npm install
 npm start
-
+```
 
 ### To run the React Native app
-bash
+```bash
 npm install
 npm start
-
+```
 
 ### To run the AI
-bash
+```bash
 cd ai
 pip install virtualenv
 virtualenv .\virt
-
+```
 
 To turn on the virtual env run the command
-bash
+```bash
 .\virt\Script\activate
-
+```
 
 Then run
-bash
+```bash
 pip install -r requirements.txt
+```
+
+
+
+
+
+
