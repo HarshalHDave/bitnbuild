@@ -39,7 +39,7 @@ const TransCard = (props: Transanction) => {
         <Text style={{ color: "#48EFEF", opacity: 0.8, fontWeight: "400" }}>
           {props.status}
         </Text>
-        {props.prdId.length == 6 ? (
+        {props.prdId && props.prdId.length == 6 ? (
           <Text style={{ color: "#b0b0be" }}>Internal</Text>
         ) : (
           <Text style={{ color: "#FF2F3B", opacity: 0.8 }}>External</Text>
