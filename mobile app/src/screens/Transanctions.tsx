@@ -96,6 +96,7 @@ const Transanctions = ({ navigation }: any) => {
           }}
           onDateSelected={(date) => {
             setDateFilter(date);
+            setTimeout(()=>{},5000)
           }}
           // dayContainerStyle={{borderRadius: 4}}
           dateNumberStyle={{ color: "#cec0ce" }}

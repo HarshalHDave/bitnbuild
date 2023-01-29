@@ -20,9 +20,9 @@ interface Transanction {
   updatedBy: null | "";
 }
 const TransCard = (props: Transanction) => {
-  const expiryDate = new Date(props.expiryDate)
-  const exportDate = new Date(props.exportDate)
-  const importDate = new Date(props.importDate)
+  const expiryDate = new Date(props.expiryDate);
+  const exportDate = new Date(props.exportDate);
+  const importDate = new Date(props.importDate);
 
   return (
     <TouchableOpacity style={styles.container}>
@@ -36,7 +36,13 @@ const TransCard = (props: Transanction) => {
           justifyContent: "space-between",
         }}
       >
-        <Text style={{ color: "#48EFEF", opacity: 0.8, fontWeight: "400" }}>
+        <Text
+          style={{
+            color: props.status != "Put Away" ? "#48EFEF" : "yellow",
+            opacity: 0.8,
+            fontWeight: "400",
+          }}
+        >
           {props.status}
         </Text>
         {props.prdId && props.prdId.length == 6 ? (
@@ -47,7 +53,7 @@ const TransCard = (props: Transanction) => {
       </View>
       <View style={{ marginTop: 8, marginLeft: 8, flexDirection: "row" }}>
         <Image
-          source={{ uri: "https://source.unsplash.com/random" }}
+          source={{ uri: props.prdImg }}
           // resizeMode="contain"
           style={{ height: "100%", width: "32%", borderRadius: 4 }}
         ></Image>
