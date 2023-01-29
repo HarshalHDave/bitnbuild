@@ -12,24 +12,17 @@ const Blocks = ({ navigation, route }: any) => {
   const blockData = ["BAb", "Bac", "BAw"];
   const BlockView = ({ block }: any) => (
     <TouchableOpacity
-      style={{ padding: 25, margin: 25, backgroundColor: "white" }}
-      onPress={() => {
-        navigation.navigate("RackScreen", {zoneName:zone , blockName:block });
-      }}
+      style={{ flex: 1, margin: 8, padding: 8, backgroundColor: "white", justifyContent: 'center', alignItems: 'center', height: 128 }}
+      onPress={() => { navigation.navigate("RackScreen", { zoneName: zone, blockName: block }) }}
     >
-      <Text style={{ color: "black" }}>{block}</Text>
+      <Text style={{ color: "black" }}>{zone}</Text>
     </TouchableOpacity>
   );
   return (
     <View style={styles.background_main}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text style={{ color: "white", fontSize: 25, fontWeight: "bold" }}>
-          Your Blocks
-        </Text>
-        <Text style={{ color: "white", fontSize: 25, fontWeight: "bold" }}>
-          Zone : {zone}
-        </Text>
-      </View>
+      <Text style={{ color: "#eee0ee", fontSize: 20, fontWeight: "400" }}>
+        Blocks in zone: {zone}
+      </Text>
       <FlatList
         numColumns={2}
         data={blockData}
@@ -47,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0A0D30",
     paddingBottom: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     justifyContent: "space-between",
   },
 });

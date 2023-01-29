@@ -9,14 +9,10 @@ import React from "react";
 // import { useSpaceManageContext } from "../../lib/SpaceContext";
 
 const Zones = ({ route ,navigation}: any) => {
-  // const zoneData = useSpaceManageContext();
-  // console.log(zoneData?.zones)
-  // const routeData = route.params;
-  // alert(JSON.stringify(routeData));
   const zoneData = ["A", "B", "C"];
   const ZoneView = ({zone}: any) => (
     <TouchableOpacity
-      style={{ padding: 25, margin: 25, backgroundColor: "white" }}
+      style={{ flex: 1, margin: 8, padding: 8, backgroundColor: "white", justifyContent: 'center', alignItems: 'center', height: 128 }}
       onPress={() => {navigation.navigate('Blocks',zone)}}
     >
       <Text style={{ color: "black" }}>{zone}</Text>
@@ -24,7 +20,9 @@ const Zones = ({ route ,navigation}: any) => {
   );
   return (
     <View style={styles.background_main}>
-      <Text style={{color:'white',fontSize:25,fontWeight:'bold'}}>Your Zones</Text>
+      <Text style={{ color: "#eee0ee", fontSize: 20, fontWeight: "400" }}>
+        Your Zones
+      </Text>
       <FlatList
         numColumns={2}
         data={zoneData}
@@ -42,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#0A0D30",
     paddingBottom: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     justifyContent: "space-between",
   },
 });
