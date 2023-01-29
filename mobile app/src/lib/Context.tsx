@@ -4,11 +4,16 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 interface Authcon {
   user: user;
   signIn: (uname: string, pass: string) => void;
+  signOut: () => void;
 }
 interface user {
   uname: string;
   email: string;
+  mobileNumber :string;
   token: string;
+  zip?:string
+  city:string;
+  address:string;
 }
 const appContext = createContext<Authcon | null>(null);
 
@@ -46,17 +51,26 @@ function useContextProvided() {
               password: pass,
             })
           );
+          console.log(val.data.data)
           setUser({
             email: val.data.data.email,
             token: val.data.data.token,
-            uname: val.data.data.name,
+            uname: val.data.data.name ?  val.data.data.name : 'barfi',
+            mobileNumber: val.data.data.mobileNo,
+            city: val.data.data.city,
+            address: val.data.data.address,
           });
         }
       });
+  };
+  const signOut = async() => {
+    await AsyncStorage.removeItem("userCred");
+    setUser(null)
   };
   useEffect(() => {}, []);
   return {
     user,
     signIn,
+    signOut
   };
 }

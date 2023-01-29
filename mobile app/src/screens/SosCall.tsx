@@ -95,7 +95,13 @@ const SosCall = () => {
         <Navbar title="SOS Alert" />
         <ScrollView>
           <View>
-            <Text>Police Station</Text>
+            <Text style={{
+              color: "#beb0be",
+              fontSize: 18,
+              fontWeight: "600",
+              letterSpacing: 0.4,
+              marginBottom: 8,
+            }}>Police Station</Text>
 
             {
               data.policeStation.map((item) => {
@@ -115,11 +121,16 @@ const SosCall = () => {
                       letterSpacing: 0.4,
                       marginBottom: 2,
                     }}>{item.address}</Text>
-                    <Text>
+                    <Text style={{
+                      color: "#beb0be",
+                      fontSize: 14,
+                      fontWeight: "600",
+                      letterSpacing: 0.4,
+                      marginBottom: 4,
+                    }}>
                       {
-                        item.phone.map((phn) =>phn+" ")
+                        item.phone.map((phn) => phn + " ")
                       }
-
                     </Text>
                   </View>
 
@@ -128,7 +139,13 @@ const SosCall = () => {
             }
           </View>
           <View>
-            <Text>Fire Station</Text>
+            <Text style={{
+              color: "#beb0be",
+              fontSize: 18,
+              fontWeight: "600",
+              letterSpacing: 0.4,
+              marginBottom: 8,
+            }}>Fire Station</Text>
 
             {
               data.fireStation.map((item) => {
@@ -148,7 +165,13 @@ const SosCall = () => {
                       letterSpacing: 0.4,
                       marginBottom: 2,
                     }}>{item.address}</Text>
-                    <Text>
+                    <Text style={{
+                      color: "#beb0be",
+                      fontSize: 14,
+                      fontWeight: "600",
+                      letterSpacing: 0.4,
+                      marginBottom: 4,
+                    }}>
                       {
                         item.phone.map((phn) => phn + " ")
                       }
@@ -183,9 +206,15 @@ const SosCall = () => {
                       marginBottom: 2,
                     }}
                     >{item.address}</Text>
-                    <Text>
+                    <Text style={{
+                      color: "#beb0be",
+                      fontSize: 14,
+                      fontWeight: "600",
+                      letterSpacing: 0.4,
+                      marginBottom: 4,
+                    }}>
                       {
-                        item.phone.map((phn) =>" " + phn + " ")
+                        item.phone.map((phn) => " " + phn + " ")
                       }
 
                     </Text>

@@ -6,14 +6,14 @@ import { Formik } from "formik";
 import { useAppContext } from "../lib/Context";
 
 const Login = () => {
-    const auth = useAppContext();
+  const auth = useAppContext();
   return (
     <SafeArea>
       <>
         <Navbar title="Login Page" />
         <Formik
           initialValues={{
-            id:'',
+            id: '',
             pass: ''
           }}
           onSubmit={(values) => {
@@ -44,7 +44,11 @@ const Login = () => {
                   />
                 </View>
               </View>
-              <Button title="Submit" onPress={() => handleSubmit()} />
+              <View style={[styles.container]}>
+                {/* <View style={[styles.searchBar]}> */}
+                  <Button title="Submit" onPress={() => handleSubmit()} />
+                {/* </View> */}
+              </View>
             </>
           )}
         </Formik>
@@ -57,29 +61,28 @@ export default Login;
 
 
 const styles = StyleSheet.create({
-    container: {
-      justifyContent: "flex-start",
-      alignItems: "center",
-      flexDirection: "row",
-      alignSelf: "center",
-      marginBottom: 20,
-    },
-    searchBar: {
-      paddingHorizontal: 8,
-      flexDirection: "row",
-      width: "99%",
-      backgroundColor: "#0A0D30",
-      borderWidth: 0.6,
-      borderColor: "#aea0ae",
-      borderRadius: 8,
-      alignItems: "center",
-      paddingVertical: 8,
-    },
-    input: {
-      fontSize: 14,
-      marginLeft: 8,
-      width: "100%",
-      color: "grey",
-    },
-  });
-  
+  container: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+  searchBar: {
+    paddingHorizontal: 8,
+    flexDirection: "row",
+    width: "99%",
+    backgroundColor: "#0A0D30",
+    borderWidth: 0.6,
+    borderColor: "#aea0ae",
+    borderRadius: 8,
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  input: {
+    fontSize: 14,
+    marginLeft: 8,
+    width: "100%",
+    color: "grey",
+  },
+});
