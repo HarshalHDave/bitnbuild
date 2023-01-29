@@ -14,6 +14,7 @@ import AiPrediction from "../screens/AiPrediction";
 import Profile from "../screens/Profile";
 import EmployeeManage from "../screens/EmployeeManage";
 import SosCall from "../screens/SosCall";
+import PutAway from "../screens/PutAway";
 
 const UserStack = () => {
   const Stack = createNativeStackNavigator();
@@ -33,6 +34,7 @@ const UserStack = () => {
       <Stack.Screen name="Profile" component={Profile}/>
       <Stack.Screen name="EmployeeManage" component={EmployeeManage}/>
       <Stack.Screen name="SosCall" component={SosCall}/>
+      <Stack.Screen name="PutAway" component={PutAway}/>
     </Stack.Navigator>
   );
 };
