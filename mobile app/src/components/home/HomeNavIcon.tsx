@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeNavIcon = () => {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <Ionicons
@@ -10,6 +12,8 @@ const HomeNavIcon = () => {
         name="person"
         size={24}
         color="#9e909e"
+        //@ts-ignore
+        onPress={()=>{navigation.navigate("Profile")}}
       />
     </View>
   );

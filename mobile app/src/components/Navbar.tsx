@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
 interface navBar {
   title: string;
   iconComponent?: JSX.Element;
+  home?: boolean;
 }
-const Navbar = ({ title, iconComponent }: navBar) => {
+const Navbar = ({ title, iconComponent, home }: navBar) => {
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -18,6 +23,14 @@ const Navbar = ({ title, iconComponent }: navBar) => {
         paddingHorizontal: 4,
       }}
     >
+      {!home && (
+        <Ionicons
+          onPress={() => navigation.goBack()}
+          name="arrow-back-sharp"
+          size={24}
+          color="white"
+        />
+      )}
       <Text
         style={{
           fontWeight: "400",
@@ -28,7 +41,36 @@ const Navbar = ({ title, iconComponent }: navBar) => {
       >
         {title}
       </Text>
-      {iconComponent}
+      <View style={{ flexDirection: "row" }}>
+        {iconComponent ? (
+          iconComponent
+        ) : (
+          <View style={{ width: 24, height: 24 }}></View>
+        )}
+        {home && (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: 4,
+              paddingTop: 8,
+              marginBottom: 4,
+              borderBottomColor: "#aea0ae",
+              paddingHorizontal: 4,
+            }}
+          >
+            <MaterialCommunityIcons
+              style={{ marginLeft: 8 }}
+              //@ts-ignore
+              onPress={() => navigation.navigate('SosCall')}
+              name="alert-box-outline"
+              size={24}
+              color="#FF2F3B"
+            />
+          </View>
+        )}
+      </View>
     </View>
   );
 };

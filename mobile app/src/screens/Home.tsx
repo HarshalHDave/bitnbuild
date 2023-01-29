@@ -8,8 +8,7 @@ const Home = ({ navigation }: any) => {
   return (
     <SafeArea>
       <>
-        <Navbar title="AnyTracker" iconComponent={<HomeNavIcon />} />
-
+        <Navbar home title="AnyTracker" iconComponent={<HomeNavIcon />} />
         <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
           <TouchableOpacity
             style={{
@@ -103,7 +102,7 @@ const Home = ({ navigation }: any) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => navigation.navigate("Orders")}
+            onPress={() => navigation.navigate("AiPrediction")}
           >
             <Image
               source={{
@@ -153,14 +152,32 @@ const Home = ({ navigation }: any) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ width: '48%', height: 152, alignItems: 'center', justifyContent: 'center' }}
-            onPress={() => navigation.navigate("Orders")}>
+            style={{
+              width: "48%",
+              height: 152,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => navigation.navigate("EmployeeManage")}
+          >
             <Image
-              source={{ uri: "https://inventory-icons-bnb.surge.sh/employees.png" }}
+              source={{
+                uri: "https://inventory-icons-bnb.surge.sh/employees.png",
+              }}
               resizeMode="contain"
-              style={{ height: '48%', width: '72%', borderRadius: 4 }}
+              style={{ height: "48%", width: "72%", borderRadius: 4 }}
             ></Image>
-            <Text style={{ textAlign: 'center', color: '#eee0ee', margin: 4, fontSize: 16, letterSpacing: 1.2 }}>Employee Management</Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#eee0ee",
+                margin: 4,
+                fontSize: 16,
+                letterSpacing: 1.2,
+              }}
+            >
+              Employee Management
+            </Text>
           </TouchableOpacity>
         </View>
       </>

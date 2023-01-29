@@ -64,6 +64,7 @@ const InventoryCard = (props: Inventory) => {
         prdImg: props.img,
         prdDesc: props.description,
         expiryDate: props.expiryDate,
+        exportDate: currDate.toISOString(),
         importDate: props.importDate,
         status:'Export'
       },
@@ -99,6 +100,7 @@ const InventoryCard = (props: Inventory) => {
         prdDesc: props.description,
         expiryDate: props.expiryDate,
         importDate: props.importDate,
+        exportDate: currDate.toISOString(),
         status:'Put Away'
       },
       {

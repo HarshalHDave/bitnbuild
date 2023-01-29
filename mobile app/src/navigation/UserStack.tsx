@@ -10,6 +10,10 @@ import ScannerScreen from "../screens/ScannerScreen";
 import SpaceManage from "../screens/SpaceManage";
 import Transanctions from "../screens/Transanctions";
 import Trans_anal from "../screens/Trans_anal";
+import AiPrediction from "../screens/AiPrediction";
+import Profile from "../screens/Profile";
+import EmployeeManage from "../screens/EmployeeManage";
+import SosCall from "../screens/SosCall";
 
 const UserStack = () => {
   const Stack = createNativeStackNavigator();
@@ -25,6 +29,10 @@ const UserStack = () => {
       <Stack.Screen name="ImportForm" component={ImportForm} />
       <Stack.Screen name="SpaceManage" component={SpaceManage} />
       <Stack.Screen name="ScannerScreen" component={ScannerScreen} />
+      <Stack.Screen name="AiPrediction" component={AiPrediction}/>
+      <Stack.Screen name="Profile" component={Profile}/>
+      <Stack.Screen name="EmployeeManage" component={EmployeeManage}/>
+      <Stack.Screen name="SosCall" component={SosCall}/>
     </Stack.Navigator>
   );
 };
