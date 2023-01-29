@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Zones from "./SPaceManage/Zones";
 import Blocks from "./SPaceManage/Blocks";
 import RackScreen from "./SPaceManage/RackScreen";
+import Products from "./SPaceManage/Products";
 // import {
 //   SpaceContextProvider,
 // } from "../lib/SpaceContext";
@@ -25,6 +26,7 @@ const SpaceManage = () => {
           <Stack.Screen name="Zones" component={Zones} />
           <Stack.Screen name="Blocks" component={Blocks} />
           <Stack.Screen name="RackScreen" component={RackScreen} />
+          <Stack.Screen name="Products" component={Products} />
         </Stack.Navigator>
         {/* </SpaceContextProvider> */}
       </>

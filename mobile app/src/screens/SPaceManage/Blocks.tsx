@@ -5,17 +5,44 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import baseUrl from "../../lib/baseUrl";
+import { useAppContext } from "../../lib/Context";
 
 const Blocks = ({ navigation, route }: any) => {
   const zone = route.params;
-  const blockData = ["BAb", "Bac", "BAw"];
+  const auth = useAppContext();
+  const [blockData, setBlockData] = useState([]);
+  useEffect(() => {
+    axios.post(baseUrl + "/space/list", {
+      query: {},
+      options: {
+        group: "block",
+        where: {
+          zone : zone
+        },
+      },
+    },{
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth?.user.token}`,
+      },
+    }).then(val=>{
+      const arr = [];
+      console.log(val.data.data.data)
+      val.data.data.data.map((item:any)=>{
+        arr.push(item.block);
+      })
+      setBlockData(arr);
+    });
+  }, []);
   const BlockView = ({ block }: any) => (
     <TouchableOpacity
       style={{ flex: 1, margin: 8, padding: 8, backgroundColor: "white", justifyContent: 'center', alignItems: 'center', height: 128 }}
       onPress={() => { navigation.navigate("RackScreen", { zoneName: zone, blockName: block }) }}
     >
-      <Text style={{ color: "black" }}>{zone}</Text>
+      <Text style={{ color: "black" }}>{block}</Text>
     </TouchableOpacity>
   );
   return (
@@ -26,7 +53,10 @@ const Blocks = ({ navigation, route }: any) => {
       <FlatList
         numColumns={2}
         data={blockData}
-        renderItem={(val) => <BlockView block={val.item}></BlockView>}
+        renderItem={(val) => {
+          console.log(val.item)
+          return<BlockView block={val.item}></BlockView>
+        }}
         keyExtractor={(item) => item}
       />
     </View>
