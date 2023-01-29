@@ -12,10 +12,18 @@ import Navbar from "../components/Navbar";
 import { Formik } from "formik";
 import { useAppContext } from "../lib/Context";
 import Checkbox from "expo-checkbox";
+import axios from "axios";
 
 const EmployeeManage = () => {
   const auth = useAppContext();
-  const [isChecked, setChecked] = useState(false);
+  const [isChecked, setChecked] = useState({
+    trans: false,
+    invManage: false,
+    thirdParty: false,
+    spaceManage: false,
+    employee: false,
+    ai: false,
+  });
   return (
     <SafeArea>
       <>
@@ -26,7 +34,14 @@ const EmployeeManage = () => {
             pass: "",
           }}
           onSubmit={(values) => {
-            auth?.signIn(values.id, values.pass);
+            var trueArr = [];
+            if (isChecked.ai) trueArr.push("ai");
+            if (isChecked.trans) trueArr.push("trans");
+            if (isChecked.spaceManage) trueArr.push("spaceManage");
+            if (isChecked.invManage) trueArr.push("invManage");
+            if (isChecked.employee) trueArr.push("employee");
+            if (isChecked.thirdParty) trueArr.push("thirdParty");
+            auth?.signUpEmployee(values.id,values.pass,JSON.stringify(trueArr));
           }}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -46,7 +61,7 @@ const EmployeeManage = () => {
                 <View style={[styles.searchBar]}>
                   <TextInput
                     style={styles.input}
-                    placeholder={"Your Password"}
+                    placeholder={"Their Password"}
                     value={values.pass}
                     onChangeText={handleChange("pass")}
                     placeholderTextColor={"grey"}
@@ -57,17 +72,21 @@ const EmployeeManage = () => {
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.trans}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, trans: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
-                  <Text style={styles.paragraph}>Tansanctions</Text>
+                  <Text style={styles.paragraph}>Transanctions</Text>
                 </View>
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.invManage}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, invManage: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
                   <Text style={styles.paragraph}>inventory management</Text>
@@ -75,8 +94,10 @@ const EmployeeManage = () => {
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.thirdParty}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, thirdParty: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
                   <Text style={styles.paragraph}>3rd Party API</Text>
@@ -84,8 +105,10 @@ const EmployeeManage = () => {
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.ai}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, ai: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
                   <Text style={styles.paragraph}>AI Forecast</Text>
@@ -93,8 +116,10 @@ const EmployeeManage = () => {
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.spaceManage}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, spaceManage: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
                   <Text style={styles.paragraph}>Space management</Text>
@@ -102,8 +127,10 @@ const EmployeeManage = () => {
                 <View style={styles.section}>
                   <Checkbox
                     style={styles.checkbox}
-                    value={isChecked}
-                    onValueChange={setChecked}
+                    value={isChecked.employee}
+                    onValueChange={(val) => {
+                      setChecked({ ...isChecked, employee: val });
+                    }}
                     color={isChecked ? "blue" : undefined}
                   />
                   <Text style={styles.paragraph}>Employee Management</Text>

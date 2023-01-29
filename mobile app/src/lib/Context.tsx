@@ -5,15 +5,18 @@ interface Authcon {
   user: user;
   signIn: (uname: string, pass: string) => void;
   signOut: () => void;
+  signUpEmployee: (uname: string, pass: string, roles: string) => void;
 }
 interface user {
-  uname: string;
+  name: string;
   email: string;
-  mobileNumber :string;
+  mobileNumber: string;
   token: string;
-  zip?:string
-  city:string;
-  address:string;
+  zip?: string;
+  city: string;
+  address: string;
+  number:string;
+  username:string
 }
 const appContext = createContext<Authcon | null>(null);
 
@@ -51,26 +54,75 @@ function useContextProvided() {
               password: pass,
             })
           );
-          console.log(val.data.data)
+          console.log(val.data.data);
           setUser({
             email: val.data.data.email,
             token: val.data.data.token,
-            uname: val.data.data.name ?  val.data.data.name : 'barfi',
+            name: val.data.data.name ? val.data.data.name : "barfi",
             mobileNumber: val.data.data.mobileNo,
             city: val.data.data.city,
             address: val.data.data.address,
+            number: val.data.data.number,
+            username: val.data.data.username,
           });
         }
       });
   };
-  const signOut = async() => {
+  const signUp = (uname: string, pass: string) => {
+    axios
+      .post(backendUrl + "admin/user/create", {
+        username: uname,
+        password: pass,
+      })
+      .then((val) => {
+        if (val.data.status === "SUCCESS") {
+          AsyncStorage.setItem(
+            "userCred",
+            JSON.stringify({
+              username: uname,
+              password: pass,
+            })
+          );
+          console.log(val.data.data);
+          setUser({
+            email: val.data.data.email,
+            token: val.data.data.token,
+            name: val.data.data.name ? val.data.data.name : "barfi",
+            mobileNumber: val.data.data.mobileNo,
+            city: val.data.data.city,
+            address: val.data.data.address,
+            number: val.data.data.number,
+            username: val.data.data.username,
+
+          });
+        }
+      });
+  };
+  const signUpEmployee = async (uname: string, pass: string, userRoles: string) => {
+    const res = await axios
+      .post(backendUrl + "admin/user/create", {
+        username: uname,
+        password: pass,
+        userType: 2,
+        number: userRoles,
+      },{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      return res.data.status === "SUCCESS"
+  };
+  const signOut = async () => {
     await AsyncStorage.removeItem("userCred");
-    setUser(null)
+    setUser(null);
   };
   useEffect(() => {}, []);
   return {
     user,
     signIn,
-    signOut
+    signOut,
+    signUp,
+    signUpEmployee,
   };
 }

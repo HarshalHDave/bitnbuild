@@ -60,6 +60,16 @@ const ImportForm = ({ navigation, route }: any) => {
       return Math.floor(Math.random() * (max - min) + min);
     }
     const prodId =randomString(6).toUpperCase()
+    console.log({
+      prdID: prodId,
+      name: name,
+      value: parseInt(value),
+      img: imgLink,
+      description: desc,
+      expiryDate: expiry.trim(),
+      importDate: date.toISOString(),
+      locId: randomNumber(11, 20),
+    })
     axios.post(
       baseUrl+"/product/create",
       {

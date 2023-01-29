@@ -21,7 +21,8 @@ const Profile = () => {
           }
         />
         <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your Email : {auth?.user.email}</Text>
-        <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your Name : {auth?.user.uname}</Text>
+        <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your Name : {auth?.user.name}</Text>
+        <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your userName : {auth?.user.username}</Text>
         <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your Phone : {auth?.user.mobileNumber}</Text>
         <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your city : {auth?.user.city}</Text>
         <Text style={{fontWeight:'bold',fontSize:18, color:'white'}}>Your address : {auth?.user.address}</Text>
