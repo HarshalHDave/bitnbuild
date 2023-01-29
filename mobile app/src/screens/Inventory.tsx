@@ -8,7 +8,7 @@ import {
 import React, { useEffect, useState } from "react";
 import SafeArea from "../components/SafeArea";
 import Navbar from "../components/Navbar";
-import { Fontisto, Ionicons } from "@expo/vector-icons";
+import { Fontisto, Ionicons, Feather } from "@expo/vector-icons";
 import CalendarStrip from "react-native-calendar-strip";
 import moment from "moment";
 import InventoryCard from "../components/InventoryCard";
@@ -61,8 +61,12 @@ const Inventory = ({ navigation }: any) => {
         <Navbar
           title="Inventory"
           iconComponent={
-            <View style={{ marginRight: 8, marginTop: 4 }}>
+            <View
+              style={{ marginRight: 8, marginTop: 4, flexDirection: "row" }}
+            >
+              <Feather onPress={()=>navigation.navigate("PutAway")} name="trash-2" size={16} color="white" />
               <Fontisto
+                style={{ marginLeft: 15 }}
                 onPress={() => navigation.navigate("Inv_anal")}
                 name="bar-chart"
                 size={16}
